@@ -9,36 +9,134 @@ import os
 import numpy as np
 
 def autosetup(path):
-
+    dataframes = []
     filenames = glob.glob(path + '/*.csv')
-
-    # get filenames and clean
+    
+        # get filenames and clean
     names = [os.path.basename(x) for x in glob.glob(path + '/*.csv')]
     names = np.char.replace(names, '.csv', '')
     names = list(names) 
-
-    dataframes = []
-
+    
     for filename in filenames:   
         dataframes.append(pd.read_csv(filename))
-  
+    
+    print('{} .csv files have been ingested'.format(len(names)))
+    print()
+    print('{} DataFrames have been created and stored in dictionary: data_dict'\
+              .format(len(names)))
+    print()
+    print('use following keys to access data (recommended to create new variable(s) containing dataframe(s)):\n')
+    print(*names, sep = '\n')
+    print()
+    
     zip_object = zip(names, dataframes)
     data_dict = dict(zip_object)
-
-    print('{} .csv files have been ingested:'.format(len(names)))
-    print('{} datframes have been created and stored in dictionary: data_dict'\
-          .format(len(names)))
-    print('Dictionary_key:')
-    print(*names, sep = '\n')
+    
+    for i in names:
+        print("DataFrame information for {}".format(i))
+        print()
+        print(data_dict[i].info())
+        print()
+        print(data_dict[i].describe())
+        
+autosetup("C:/Users/chris/Documents/datasets_xfer/Netflix_Stocks_Capstone/")
     
     
   EXAMPLE OUTPUT
-  >>6 .csv files have been ingested:
-  6 datframes have been created and stored in dictionary: data_dict
-  Dictionary_key:
-  WDICountry-Series
-  WDICountry
-  WDIData
-  WDIFootNote
-  WDISeries-Time
-  WDISeries
+3 .csv files have been ingested
+
+3 DataFrames have been created and stored in dictionary: data_dict
+
+use following keys to access data :
+
+DJI
+NFLX
+NFLX_daily_by_quarter
+
+recommended to create new variable(s) containing dataframe(s)
+
+DataFrame information for DJI
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 12 entries, 0 to 11
+Data columns (total 7 columns):
+ #   Column     Non-Null Count  Dtype  
+---  ------     --------------  -----  
+ 0   Date       12 non-null     object 
+ 1   Open       12 non-null     float64
+ 2   High       12 non-null     float64
+ 3   Low        12 non-null     float64
+ 4   Close      12 non-null     float64
+ 5   Adj Close  12 non-null     float64
+ 6   Volume     12 non-null     int64  
+dtypes: float64(5), int64(1), object(1)
+memory usage: 800.0+ bytes
+None
+
+               Open          High  ...     Adj Close        Volume
+count     12.000000     12.000000  ...     12.000000  1.200000e+01
+mean   21576.639323  22090.152507  ...  21937.621745  6.510095e+09
+std     1332.002426   1458.599365  ...   1503.771517  6.329533e+08
+min    19872.859375  20125.580078  ...  19864.089844  5.392630e+09
+25%    20884.259278  21101.965332  ...  20908.442383  6.176700e+09
+50%    21211.425781  21732.415039  ...  21620.375000  6.536170e+09
+75%    22092.194824  22685.944824  ...  22648.127441  7.010125e+09
+max    24305.400391  24876.070313  ...  24719.220703  7.335640e+09
+
+[8 rows x 6 columns]
+DataFrame information for NFLX
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 12 entries, 0 to 11
+Data columns (total 7 columns):
+ #   Column     Non-Null Count  Dtype  
+---  ------     --------------  -----  
+ 0   Date       12 non-null     object 
+ 1   Open       12 non-null     float64
+ 2   High       12 non-null     float64
+ 3   Low        12 non-null     float64
+ 4   Close      12 non-null     float64
+ 5   Adj Close  12 non-null     float64
+ 6   Volume     12 non-null     int64  
+dtypes: float64(5), int64(1), object(1)
+memory usage: 800.0+ bytes
+None
+
+             Open        High         Low       Close   Adj Close        Volume
+count   12.000000   12.000000   12.000000   12.000000   12.000000  1.200000e+01
+mean   162.109168  174.188333  154.949168  168.079169  168.079169  1.420596e+08
+std     22.427309   22.889526   19.519561   21.298918   21.298918  3.597514e+07
+min    124.959999  143.460007  124.309998  140.710007  140.710007  9.143200e+07
+25%    145.734997  152.212501  138.952503  149.010003  149.010003  1.141848e+08
+50%    157.715004  175.744995  149.455002  168.890007  168.890007  1.360994e+08
+75%    182.205002  192.247501  173.475002  184.235005  184.235005  1.667328e+08
+max    197.240005  204.380005  184.320007  196.429993  196.429993  2.086578e+08
+DataFrame information for NFLX_daily_by_quarter
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 251 entries, 0 to 250
+Data columns (total 8 columns):
+ #   Column     Non-Null Count  Dtype  
+---  ------     --------------  -----  
+ 0   Date       251 non-null    object 
+ 1   Open       251 non-null    float64
+ 2   High       251 non-null    float64
+ 3   Low        251 non-null    float64
+ 4   Close      251 non-null    float64
+ 5   Adj Close  251 non-null    float64
+ 6   Volume     251 non-null    int64  
+ 7   Quarter    251 non-null    object 
+dtypes: float64(5), int64(1), object(2)
+memory usage: 15.8+ KB
+None
+
+             Open        High         Low       Close   Adj Close        Volume
+count  251.000000  251.000000  251.000000  251.000000  251.000000  2.510000e+02
+mean   165.402311  167.048725  163.487012  165.374263  165.374263  6.589608e+06
+std     21.311867   21.594081   20.968138   21.295641   21.295641  4.117679e+06
+min    124.959999  128.190002  124.309998  127.489998  127.489998  2.160500e+06
+25%    144.564995  145.750000  143.329994  144.245002  144.245002  4.500900e+06
+50%    162.910004  163.929993  160.550003  162.429993  162.429993  5.518600e+06
+75%    185.915001  188.120002  183.209999  185.594994  185.594994  7.145300e+06
+max    201.949997  204.380005  198.089996  202.679993  202.679993  4.158740e+07
+
