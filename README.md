@@ -24,7 +24,7 @@ DataFrame information for DJI
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 12 entries, 0 to 11
 Data columns (total 7 columns):
- #   Column     Non-Null Count  Dtype  
+    Column     Non-Null Count  Dtype  
 ---  ------     --------------  -----  
  0   Date       12 non-null     object 
  1   Open       12 non-null     float64
@@ -53,7 +53,7 @@ DataFrame information for NFLX
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 12 entries, 0 to 11
 Data columns (total 7 columns):
- #   Column     Non-Null Count  Dtype  
+    Column     Non-Null Count  Dtype  
 ---  ------     --------------  -----  
  0   Date       12 non-null     object 
  1   Open       12 non-null     float64
